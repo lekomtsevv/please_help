@@ -115,14 +115,16 @@ public class Program
                     {
                         Console.WriteLine(item);
                     }
-                    Algorithm.MostCommonElement(numbers);
-                    // сохранить полученные результаты в файл
-                    saves = saveYN();
-                    if (saves == true)
-                    {
-                        save = SaveFile();
-                        savefileresult(save, numbers);
-                    }
+                    if (numbers.Count != 0) {
+                        Algorithm.MostCommonElement(numbers);//Если файл "сломаный"тоалгоритм всё равно пытается посчитатьи появляется крит. ошибка
+                                                            // сохранить полученные результаты в файл
+                        saves = saveYN();
+                        if (saves == true)
+                        {
+                            save = SaveFile();
+                            savefileresult(save, numbers);
+                        }
+                    } 
                     break;
                     
 
@@ -279,8 +281,9 @@ public class Program
             {
                 try
                 {
-                    while ((c = (char)fIn.Read()) != ';')
+                    while ((c = (char)fIn.Read()) != ';')//Прога ломается тут так как пытается найти ";" и уходит в бесконечный цикл
                     {
+                    if (c == '\uffff') break;
                         cc = cc + c;
                     }
                     y = Int32.Parse(cc);
